@@ -42,7 +42,7 @@ module.exports = {
         externalLinks: [
           {
             name: `LinkedIn`,
-            url: `www.linkedin.com/in/matthewrathbun`,
+            url: `https://www.linkedin.com/in/matthewrathbun`,
           },
           {
             name: `Github`,
