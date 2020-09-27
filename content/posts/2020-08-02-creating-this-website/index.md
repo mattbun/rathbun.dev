@@ -18,6 +18,8 @@ What you're reading right now was built and deployed using:
 
 There are plenty of resources out there explaining how to set up a website like this, but I figured it'd be nice to gather it into one how-to. I'm sure it'll be _real_ helpful when I forget how this all works in a few months 😅.
 
+<!--more-->
+
 ### Step 1: Initialize a New Gatsby Site
 
 It's super easy to get started with [Gatsby](https://www.gatsbyjs.org/). Honestly, the hardest part about it was figuring out a theme or starter to use.
