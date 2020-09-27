@@ -4,6 +4,7 @@
   "author": "Matt Rathbun",
   "license": "MIT",
   "scripts": {
+    "build": "hugo",
     "develop": "hugo server -D",
     "new": "hugo new"
   },
