@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>#!/bun/blog</title>
+    <link>/</link>
+    <description>Recent content on #!/bun/blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2020 Matt Rathbun</copyright>
+    <lastBuildDate>Sun, 02 Aug 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How I Made This Website</title>
+      <link>/posts/how-i-made-this-website/</link>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/how-i-made-this-website/</guid>
+      <description>&lt;p&gt;Hey look I have a fancy new website! 🦄🤖🚀&lt;/p&gt;
+&lt;p&gt;What you&amp;rsquo;re reading right now was built and deployed using:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.gatsbyjs.org/&#34;&gt;Gatsby&lt;/a&gt; - A static site generator&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pages.github.com/&#34;&gt;GitHub Pages&lt;/a&gt; - Host sites from a git repository&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/features/actions&#34;&gt;GitHub Actions&lt;/a&gt; - Automate rebuilding the website whenever changes are pushed to master&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are plenty of resources out there explaining how to set up a website like this, but I figured it&amp;rsquo;d be nice to gather it into one how-to. I&amp;rsquo;m sure it&amp;rsquo;ll be &lt;em&gt;real&lt;/em&gt; helpful when I forget how this all works in a few months 😅.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>Hey there! I&amp;rsquo;m Matt Rathbun, a software engineer based out of Detroit. I mostly work on Node.js backends for a living, but at home I like to wrangle Linux servers, experiment with electronics, and probably spend a little too much time tweaking my dotfiles.</description>
+    </item>
+    
+  </channel>
+</rss>

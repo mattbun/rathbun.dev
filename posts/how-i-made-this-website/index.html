@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>How I Made This Website :: #!/bun/blog</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Hey look I have a fancy new website! 🦄🤖🚀
+What you&amp;rsquo;re reading right now was built and deployed using:
+ Gatsby - A static site generator GitHub Pages - Host sites from a git repository GitHub Actions - Automate rebuilding the website whenever changes are pushed to master  There are plenty of resources out there explaining how to set up a website like this, but I figured it&amp;rsquo;d be nice to gather it into one how-to. I&amp;rsquo;m sure it&amp;rsquo;ll be real helpful when I forget how this all works in a few months 😅.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="/posts/how-i-made-this-website/" />
+
+
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="Matt Rathbun" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="How I Made This Website">
+<meta property="og:description" content="Hey look I have a fancy new website! 🦄🤖🚀
+What you&amp;rsquo;re reading right now was built and deployed using:
+ Gatsby - A static site generator GitHub Pages - Host sites from a git repository GitHub Actions - Automate rebuilding the website whenever changes are pushed to master  There are plenty of resources out there explaining how to set up a website like this, but I figured it&amp;rsquo;d be nice to gather it into one how-to. I&amp;rsquo;m sure it&amp;rsquo;ll be real helpful when I forget how this all works in a few months 😅.
+" />
+<meta property="og:url" content="/posts/how-i-made-this-website/" />
+<meta property="og:site_name" content="#!/bun/blog" />
+
+  
+    <meta property="og:image" content="/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2020-08-02 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    #!/bun/blog
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">about me</a></li>
+        
+      
+        
+          <li><a href="https://github.com/mattbun">github</a></li>
+        
+      
+        
+          <li><a href="https://linkedin.com/in/matthewrathbun">linkedin</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about me</a></li>
+      
+    
+      
+        <li><a href="https://github.com/mattbun">github</a></li>
+      
+    
+      
+        <li><a href="https://linkedin.com/in/matthewrathbun">linkedin</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/how-i-made-this-website/">How I Made This Website</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2020-08-02 
+      </span>
+    
+    
+    <span class="post-author">:: Matt Rathbun</span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/gatsby/">gatsby</a>&nbsp;
+    
+    #<a href="/tags/github-actions/">github-actions</a>&nbsp;
+    
+    #<a href="/tags/github-pages/">github-pages</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>Hey look I have a fancy new website! 🦄🤖🚀</p>
+<p>What you&rsquo;re reading right now was built and deployed using:</p>
+<ul>
+<li><a href="https://www.gatsbyjs.org/">Gatsby</a> - A static site generator</li>
+<li><a href="https://pages.github.com/">GitHub Pages</a> - Host sites from a git repository</li>
+<li><a href="https://github.com/features/actions">GitHub Actions</a> - Automate rebuilding the website whenever changes are pushed to master</li>
+</ul>
+<p>There are plenty of resources out there explaining how to set up a website like this, but I figured it&rsquo;d be nice to gather it into one how-to. I&rsquo;m sure it&rsquo;ll be <em>real</em> helpful when I forget how this all works in a few months 😅.</p>
+<h3 id="step-1-initialize-a-new-gatsby-site">Step 1: Initialize a New Gatsby Site<a href="#step-1-initialize-a-new-gatsby-site" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>It&rsquo;s super easy to get started with <a href="https://www.gatsbyjs.org/">Gatsby</a>. Honestly, the hardest part about it was figuring out a theme or starter to use.</p>
+<p>At first I really liked <a href="https://github.com/alxshelepenok/gatsby-starter-lumen">this one</a>, but the file structure of it started to rub me the wrong way. There&rsquo;s a lot code in there, how do I update it if the starter gets updated? Do I fork it? Am I going to have deal with merge conflicts?</p>
+<p>I switched to <a href="https://github.com/LekoArts/gatsby-themes/tree/master/themes/gatsby-theme-minimal-blog">this theme</a>. It&rsquo;s nice and simple. The only things in my repo are content (if I had any) and site settings. Getting updates from upstream is just a matter of updating the npm package:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;dependencies&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+    <span style="color:#f92672">&#34;@lekoarts/gatsby-theme-minimal-blog&#34;</span>: <span style="color:#e6db74">&#34;^2.4.0&#34;</span>,
+</code></pre></div><h3 id="step-2-create-a-repository-on-github">Step 2: Create a Repository on GitHub<a href="#step-2-create-a-repository-on-github" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Create a new repository on GitHub and push your new gatsby site to it. If you want GitHub Pages to host your website at <code>&lt;your-username&gt;.github.io</code>, you <strong>must</strong> name the repo <code>&lt;your-username&gt;.github.io</code>. For example, the repo for this website is named <a href="https://github.com/mattbun/mattbun.github.io"><code>mattbun.github.io</code></a>.</p>
+<h3 id="step-3-set-up-github-actions">Step 3: Set Up GitHub Actions<a href="#step-3-set-up-github-actions" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>So now the code is on GitHub. But wait, doesn&rsquo;t this repo <em>only</em> have markdown? How do we compile it and get it deployed?</p>
+<p>That&rsquo;s where GitHub Actions comes in. We&rsquo;ll use it to automatically build the site and push the compiled site to a <code>gh-pages</code> branch whenever the <code>master</code> branch is pushed to.</p>
+<p><a href="https://github.com/marketplace/actions/gatsby-publish">Someone already made an action to do this</a>, so all you need is this in <code>.github/workflows</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml:title=.github/workflows/publish.yml" data-lang="yaml:title=.github/workflows/publish.yml"><span style="color:#f92672">name</span>: <span style="color:#ae81ff">Gatsby Publish</span>
+
+<span style="color:#f92672">on</span>:
+  <span style="color:#f92672">push</span>:
+    <span style="color:#f92672">branches</span>:
+      - <span style="color:#ae81ff">master</span>
+
+<span style="color:#f92672">jobs</span>:
+  <span style="color:#f92672">build</span>:
+    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+    <span style="color:#f92672">steps</span>:
+      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v1</span>
+      - <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">enriikke/gatsby-gh-pages-action@v2</span>
+        <span style="color:#f92672">with</span>:
+          <span style="color:#f92672">access-token</span>: <span style="color:#ae81ff">${{ secrets.ACCESS_TOKEN }}</span>
+          <span style="color:#f92672">deploy-branch</span>: <span style="color:#ae81ff">gh-pages</span>
+</code></pre></div><p>Before you go and push this change, note that it requires a secret named <code>ACCESS_TOKEN</code>. It needs that token to push changes to your repo.</p>
+<p>You&rsquo;ll need to generate a personal access token with <code>repo</code> scope. See <a href="https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token">here</a> for instructions on how to do that. Copy the token, open your repository&rsquo;s settings, go to the &ldquo;Secrets&rdquo; tab, and create a new secret named <code>ACCESS_TOKEN</code> with the token you copied.</p>
+<p><img src="screenshot_secret.png" alt="Adding GitHub secret"></p>
+<p>With the secret in place, go ahead and push those changes. Go to the &ldquo;Actions&rdquo; tab in GitHub and you can watch the build in action. Assuming it completes successfully, you&rsquo;ll find there&rsquo;s a new <code>gh-pages</code> branch with your compiled website (<a href="https://github.com/mattbun/mattbun.github.io/tree/gh-pages">like this</a>). We&rsquo;re almost there!</p>
+<h3 id="step-4-enable-github-pages">Step 4: Enable GitHub Pages<a href="#step-4-enable-github-pages" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Now you just need to <a href="https://docs.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">enable Github Pages</a> on this repository. Click the Settings tab and scroll all the way down to the &ldquo;GitHub Pages&rdquo; section. Choose your new <code>gh-pages</code> branch and hit save!</p>
+<p><img src="screenshot_pages.png" alt="Enabling GitHub Pages"></p>
+<h3 id="step-5-try-it-out">Step 5: Try it Out!<a href="#step-5-try-it-out" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>That should be it! Open up your website at <code>&lt;username&gt;-github.io</code> and it should be up and running! 🎉💃</p>
+<h3 id="bonus-using-a-custom-domain">Bonus: Using a Custom Domain<a href="#bonus-using-a-custom-domain" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>In addition to <a href="https://mattbun.github.io">mattbun.github.io</a>, I updated my domain <a href="https://rathbun.dev">rathbun.dev</a> to point to it as well. <a href="https://docs.github.com/en/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain">These instructions</a> show you how to do it. My domain is registered through Google Domains and my DNS settings there look something like this:</p>
+<p><img src="screenshot_dns.png" alt="Configuring DNS in Google Domains"></p>
+<p>Be sure to put your domain name in a file named <code>CNAME</code> in the root directory on your master branch. GitHub will try to add it to your <code>gh-pages</code> branch but the Gatsby Publish action will overwrite it. If you put it in master, the action <a href="https://github.com/marketplace/actions/gatsby-publish#cname">will copy the file over when it deploys</a>.</p>
+      </div></div>
+
+  
+  
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>&copy; 2020 Matt Rathbun</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

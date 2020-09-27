@@ -1,10 +1,48 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url> <loc>https://mattbun.github.io/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://mattbun.github.io/blog</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://mattbun.github.io/tags</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://mattbun.github.io/how-i-made-this-website</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://mattbun.github.io/about</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://mattbun.github.io/tags/gatsby</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
-<url> <loc>https://mattbun.github.io/tags/github</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/gatsby/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/github-actions/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/github-pages/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/how-i-made-this-website/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+  </url>
+  
 </urlset>
