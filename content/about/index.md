@@ -1,3 +1,7 @@
+---
+title: "About Me"
+---
+
 <img src="me.jpeg" alt="Me" style="display:block; margin-left:auto; margin-right:auto; width:25%; object-fit:cover; border-radius:50%;"/>
 
 ### Hey there!
