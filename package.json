@@ -11,5 +11,7 @@
     "themes/terminal"
   ],
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "hugo-bin": "^0.63.1"
+  }
 }
