@@ -7,6 +7,9 @@
     "develop": "hugo server -D",
     "new": "hugo new"
   },
+  "workspaces": [
+    "themes/terminal"
+  ],
   "dependencies": {},
   "devDependencies": {}
 }
