@@ -12,5 +12,5 @@ yarn develop
 ## Creating a post
 
 ```shell
-yarn new posts/some-really-cool-slug
+yarn new posts/2020-12-25-some-really-cool-slug
 ```

@@ -1,9 +1,8 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
+title: "{{ replace ( replaceRE "^\\d+-\\d+-\\d+-" "" .Name 1 ) "-" " " | title }}"
 author: "Matt Rathbun"
 draft: true
-slug: "{{ .Name }}"
+slug: "{{ replaceRE "^\\d+-\\d+-\\d+-" "" .Name 1 }}"
 ---
 
 <!-- this will show up in the preview -->
