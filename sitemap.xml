@@ -4,16 +4,41 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-09-28T21:56:35-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/gatsby/</loc>
-    <lastmod>2020-09-28T21:56:35-04:00</lastmod>
+    <lastmod>2020-10-24T13:34:45-04:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/github-actions/</loc>
+    <lastmod>2020-10-24T13:34:45-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/hugo/</loc>
+    <lastmod>2020-10-24T13:34:45-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2020-10-24T13:34:45-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ssg/</loc>
+    <lastmod>2020-10-24T13:34:45-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/switching-to-hugo/</loc>
+    <lastmod>2020-10-24T13:34:45-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-10-24T13:34:45-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/gatsby/</loc>
     <lastmod>2020-09-28T21:56:35-04:00</lastmod>
   </url>
   
@@ -24,16 +49,6 @@
   
   <url>
     <loc>/posts/how-i-made-this-website/</loc>
-    <lastmod>2020-09-28T21:56:35-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/</loc>
-    <lastmod>2020-09-28T21:56:35-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-09-28T21:56:35-04:00</lastmod>
   </url>
   

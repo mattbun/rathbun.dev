@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ssg on #!/bun/blog</title>
+    <link>/tags/ssg/</link>
+    <description>Recent content in ssg on #!/bun/blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2020 Matt Rathbun</copyright>
+    <lastBuildDate>Sat, 03 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/tags/ssg/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Switching to Hugo</title>
+      <link>/posts/switching-to-hugo/</link>
+      <pubDate>Sat, 03 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/switching-to-hugo/</guid>
+      <description>&lt;p&gt;Welp, I switched this website from &lt;a href=&#34;https://www.gatsbyjs.com/&#34;&gt;Gatsby&lt;/a&gt; to &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This reminds me of my distro-hoppin&#39; days, when I used to spend nights installing different Linux distributions and then meticulously configuring them to my liking. &amp;ldquo;Oh man, I can get &lt;em&gt;so&lt;/em&gt; much done with this distro!&amp;rdquo;, I&amp;rsquo;d say. I spent so mush time trying to find that perfect setup, that I didn&amp;rsquo;t spend much time actually &lt;em&gt;using&lt;/em&gt; them to get things done.&lt;/p&gt;
+&lt;p&gt;Well, I guess I haven&amp;rsquo;t changed much. After writing a single post, I decided to try something else for this website. Let&amp;rsquo;s at least talk about the notable changes in a &lt;em&gt;second&lt;/em&gt; post&amp;hellip;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
