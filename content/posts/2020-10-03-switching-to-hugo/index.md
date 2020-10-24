@@ -1,7 +1,6 @@
 ---
 title: "Switching to Hugo"
 author: "Matt Rathbun"
-draft: true
 tags:
   - hugo
   - github-actions
