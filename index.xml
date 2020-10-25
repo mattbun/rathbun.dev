@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>#!/bun/blog</title>
+    <title>#!/rath/bun</title>
     <link>/</link>
-    <description>Recent content on #!/bun/blog</description>
+    <description>Recent content on #!/rath/bun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2020 Matt Rathbun</copyright>
