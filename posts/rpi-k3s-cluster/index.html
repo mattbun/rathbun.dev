@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Raspberry Pi Cluster Part 1 - Saibamen Attack! :: #!/rath/bun</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Over the holidays I made a k3s (that&amp;rsquo;s Kubernetes minus 5) cluster out of Raspberry Pis I had lying around. And while it&amp;rsquo;s extremely cool, it&amp;rsquo;s also pretty unstable.
+I&amp;rsquo;ll save my complaints for part 2. In this post, I&amp;rsquo;ll outline what this new cluster looks like and how I set it up.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="/posts/rpi-k3s-cluster/" />
+
+
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="Matt Rathbun" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Raspberry Pi Cluster Part 1 - Saibamen Attack!">
+<meta property="og:description" content="Over the holidays I made a k3s (that&amp;rsquo;s Kubernetes minus 5) cluster out of Raspberry Pis I had lying around. And while it&amp;rsquo;s extremely cool, it&amp;rsquo;s also pretty unstable.
+I&amp;rsquo;ll save my complaints for part 2. In this post, I&amp;rsquo;ll outline what this new cluster looks like and how I set it up.
+" />
+<meta property="og:url" content="/posts/rpi-k3s-cluster/" />
+<meta property="og:site_name" content="#!/rath/bun" />
+
+  
+    <meta property="og:image" content="/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-02-21 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    #!/rath/bun
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">about me</a></li>
+        
+      
+        
+          <li><a href="/posts">posts</a></li>
+        
+      
+        
+          <li><a href="https://github.com/mattbun">github</a></li>
+        
+      
+        
+          <li><a href="https://linkedin.com/in/matthewrathbun">linkedin</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about me</a></li>
+      
+    
+      
+        <li><a href="/posts">posts</a></li>
+      
+    
+      
+        <li><a href="https://github.com/mattbun">github</a></li>
+      
+    
+      
+        <li><a href="https://linkedin.com/in/matthewrathbun">linkedin</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/rpi-k3s-cluster/">Raspberry Pi Cluster Part 1 - Saibamen Attack!</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-02-21 
+      </span>
+    
+    
+    <span class="post-author">:: Matt Rathbun</span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/rpi/">rpi</a>&nbsp;
+    
+    #<a href="/tags/linux/">linux</a>&nbsp;
+    
+    #<a href="/tags/kubernetes/">kubernetes</a>&nbsp;
+    
+    #<a href="/tags/k3s/">k3s</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+    <div class="table-of-contents">
+      <h2>
+        
+          Table of Contents
+        
+      </h2>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a>
+      <ul>
+        <li><a href="#the-hardware">The Hardware</a></li>
+        <li><a href="#the-software">The Software</a></li>
+      </ul>
+    </li>
+    <li><a href="#setup">Setup</a>
+      <ul>
+        <li><a href="#installing-and-configuring-linux">Installing and Configuring Linux</a></li>
+        <li><a href="#networking">Networking</a>
+          <ul>
+            <li><a href="#sharing-a-wifi-connection">Sharing a WiFi Connection</a></li>
+          </ul>
+        </li>
+        <li><a href="#setting-up-k3s">Setting up k3s</a>
+          <ul>
+            <li><a href="#install-k3s-on-the-master-node">Install k3s on the master node</a></li>
+            <li><a href="#install-k3s-on-the-worker-node">Install k3s on the worker node</a></li>
+            <li><a href="#grab-your-kubeconfig">Grab your kubeconfig</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#now-what">Now What?</a></li>
+  </ul>
+</nav>
+    </div>
+  
+
+  <div class="post-content"><div>
+        <p>Over the holidays I made a <a href="https://k3s.io/">k3s</a> (that&rsquo;s Kubernetes minus 5) cluster out of Raspberry Pis I had lying around. And while it&rsquo;s <em>extremely</em> cool, it&rsquo;s also <em>pretty</em> unstable.</p>
+<p>I&rsquo;ll save my complaints for part 2. In this post, I&rsquo;ll outline what this new cluster looks like and how I set it up.</p>
+<h1 id="overview">Overview<a href="#overview" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>To keep it simple, this cluster has just two nodes. In keeping with my tradition of naming computers after Dragon Ball Z villains, it&rsquo;s collectively named the <code>saibamen</code> cluster (after those <a href="https://dragonball.fandom.com/wiki/Saibamen">nasty little green aliens</a> Nappa and Vegeta unleashed on our unsuspecting Z Fighters).</p>
+<ul>
+<li><code>saibaman1</code> -&gt; master node
+<ul>
+<li>Also runs a DHCP server, assigning IP addresses on the cluster network</li>
+<li>Connected to the outside network over WiFi and shares that connection with the rest of the cluster</li>
+</ul>
+</li>
+<li><code>saibaman2</code> -&gt; worker node
+<ul>
+<li>Only connected to the cluster network</li>
+</ul>
+</li>
+</ul>
+<h2 id="the-hardware">The Hardware<a href="#the-hardware" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>2 x Raspberry Pi 3
+<ul>
+<li>Note that <a href="https://github.com/kubernetes/kubeadm/issues/253#issuecomment-296738890">k3s doesn&rsquo;t support ARMv6</a>, so you need at least a Pi 2. Older Pis like the Pi 1 and Pi Zero aren&rsquo;t supported.</li>
+</ul>
+</li>
+<li>2 x MicroSD cards</li>
+<li>1 x Ethernet switch</li>
+<li>1 x USB power hub (I got <a href="https://www.amazon.com/gp/product/B00P933OJC">this one</a>, though I wonder if this is the culprit for some of the issues I&rsquo;ve had)</li>
+</ul>
+<h2 id="the-software">The Software<a href="#the-software" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>Raspberry Pi OS (formerly known as raspbian)
+<ul>
+<li>I tried NixOS first (I&rsquo;m a bit of a fanboy) but had some trouble getting it working. Maybe someday!</li>
+</ul>
+</li>
+<li>k3s
+<ul>
+<li><em>Why k3s?</em> Because it&rsquo;s easy to set up and getting it working on Raspberry Pi is well documented.</li>
+</ul>
+</li>
+<li>dnsmasq - the DHCP server running on the master node</li>
+<li>iptables - Used to share wifi connection with the rest of the cluster</li>
+</ul>
+<h1 id="setup">Setup<a href="#setup" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<h2 id="installing-and-configuring-linux">Installing and Configuring Linux<a href="#installing-and-configuring-linux" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Do this on both Pis.</p>
+<ol>
+<li>
+<p><em>Use your favorite method to install Raspberry Pi OS on the microSD card.</em> Personally, I like good ol' <code>dd</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo dd bs<span style="color:#f92672">=</span>4M <span style="color:#66d9ef">if</span><span style="color:#f92672">=</span>path/to/image.img of<span style="color:#f92672">=</span>/dev/sdX conv<span style="color:#f92672">=</span>fsync
+</code></pre></div></li>
+<li>
+<p>You&rsquo;ll likely want to run <code>sudo raspi-config</code> and change a few things:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-plain" data-lang="plain">In `System Options`,
+  * Set a password
+  * Set a hostname
+In `Interface Options`,
+  * Enable SSH access
+In `Localisation Options`,
+  * Set locale
+  * Set timezone
+  * Enable WiFi (on master only)
+</code></pre></div></li>
+<li>
+<p>Install your favorite editor (Vim, obvs)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt install vim
+</code></pre></div></li>
+<li>
+<p><strong>Important!</strong> Add this line to the end of <code>/boot/cmdline.txt</code> so k3s can run containers</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-txt" data-lang="txt">cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
+</code></pre></div></li>
+<li>
+<p>Reboot!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo reboot
+</code></pre></div></li>
+</ol>
+<h2 id="networking">Networking<a href="#networking" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>To keep cluster traffic isolated from my home network, the master node serves as a DHCP server and shares its WiFi connection over ethernet. It ends up looking something like this:</p>
+<pre><code>Wifi (192.168.1.x) -&gt; saibaman1 -&gt; Ethernet (192.168.2.x) -&gt; saibaman2
+</code></pre><h3 id="sharing-a-wifi-connection">Sharing a WiFi Connection<a href="#sharing-a-wifi-connection" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>The following is copied with a few small changes (mostly that I changed it to use <code>192.168.2.x</code>) from <a href="https://www.raspberrypi.org/forums/viewtopic.php?t=223295">this excellent forum post</a>.</p>
+<ol>
+<li>
+<p>Configure the Pi&rsquo;s WiFi connection. Check out <a href="https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md">this guide</a> for how to do that. Once you&rsquo;ve set up WiFi, you&rsquo;ll probably want to disconnect it from ethernet if it&rsquo;s connected. Running multiple DHCP servers can get weird pretty fast.</p>
+</li>
+<li>
+<p>Install dnsmasq</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt install dnsmasq
+</code></pre></div></li>
+<li>
+<p>Set a static IP address for <code>eth0</code>. Open <code>/etc/dhcpcd.conf</code> and add this to the end:</p>
+<pre><code class="language-conf" data-lang="conf">interface eth0
+static ip_address=192.168.2.1/24
+</code></pre></li>
+<li>
+<p>Save or remove the original <code>dnsmasq.conf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo mv /etc/dnsmasq.conf /etc/dnsmaq.conf.orig
+</code></pre></div></li>
+<li>
+<p>Open <code>/etc/dnsmasq.conf</code> and add this:</p>
+<pre><code class="language-conf" data-lang="conf">interface=eth0
+dhcp-range=192.168.2.10,192.168.2.250,255.255.255.0,12h
+</code></pre></li>
+<li>
+<p>Open <code>/etc/sysctl.conf</code> and uncomment</p>
+<pre><code class="language-conf" data-lang="conf">net.ipv4.ip_forward=1
+</code></pre></li>
+<li>
+<p>Open <code>/etc/rc.local</code> and add this line above <code>exit 0</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iptables -t nat -A  POSTROUTING -o wlan0 -j MASQUERADE
+</code></pre></div></li>
+<li>
+<p>Reboot!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo reboot
+</code></pre></div></li>
+</ol>
+<h2 id="setting-up-k3s">Setting up k3s<a href="#setting-up-k3s" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<h3 id="install-k3s-on-the-master-node">Install k3s on the master node<a href="#install-k3s-on-the-master-node" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ol>
+<li>
+<p><code>ssh</code> into the master pi</p>
+</li>
+<li>
+<p>Install <code>k3s</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -sfL https://get.k3s.io | sh -
+</code></pre></div></li>
+<li>
+<p>Check to see if it&rsquo;s working. Run the following to see what nodes have been added to the cluster, you should see one node:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo kubectl get nodes
+</code></pre></div></li>
+<li>
+<p>Copy the join token, you&rsquo;ll need this to add nodes to the cluster</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo cat /var/lib/rancher/k3s/server/node-token
+</code></pre></div></li>
+</ol>
+<h3 id="install-k3s-on-the-worker-node">Install k3s on the worker node<a href="#install-k3s-on-the-worker-node" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ol>
+<li>
+<p><code>ssh</code> into the worker pi</p>
+</li>
+<li>
+<p>Install <code>k3s</code> and be sure to pass the token you copied earlier and the IP address of the master node:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">curl -sfL http://get.k3s.io | K3S_URL<span style="color:#f92672">=</span>https://192.168.2.1:6443 <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>K3S_TOKEN<span style="color:#f92672">=</span>&lt;join-token&gt; sh -
+</code></pre></div></li>
+<li>
+<p>Once that&rsquo;s done, check to see if it&rsquo;s working. <code>ssh</code> back into the master node and run the following command. You should see two nodes:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo kubectl get nodes
+</code></pre></div></li>
+</ol>
+<h3 id="grab-your-kubeconfig">Grab your kubeconfig<a href="#grab-your-kubeconfig" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<ol>
+<li>
+<p><code>ssh</code> into the master node</p>
+</li>
+<li>
+<p>Copy its kubeconfig</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo cat /etc/rancher/k3s/k3s.yaml
+</code></pre></div></li>
+<li>
+<p>Return to the computer you&rsquo;d like to put the kubeconfig onto</p>
+</li>
+<li>
+<p>Make a <code>.kube</code> folder if one doesn&rsquo;t exist already</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir .kube
+</code></pre></div></li>
+<li>
+<p>Open <code>.kube/config</code> and paste the contents of the file you copied earlier</p>
+</li>
+<li>
+<p>Replace <code>localhost</code> with the IP address of the master node relative to the computer you&rsquo;re setting this up on:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">server</span>: <span style="color:#ae81ff">https://192.168.1.x:6443</span>
+</code></pre></div></li>
+<li>
+<p>Change the permissions of the new file so kubectl won&rsquo;t complain about it (oh <em>and</em> because it&rsquo;s the right thing to do):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">chmod <span style="color:#ae81ff">600</span> ~/.kube/config
+</code></pre></div></li>
+<li>
+<p>Try it out!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get nodes
+</code></pre></div></li>
+</ol>
+<h1 id="now-what">Now What?<a href="#now-what" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>Install your favorite helm chart on it! But remember that it&rsquo;s ARM so your favorite images might not run on it. Also you only have 1GB of memory on each node. Good luck!</p>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="/posts/switching-to-hugo/">
+                <span class="button__text">Switching to Hugo</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>&copy; 2020 Matt Rathbun</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
