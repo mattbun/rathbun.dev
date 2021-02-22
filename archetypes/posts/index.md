@@ -7,6 +7,6 @@ slug: "{{ replaceRE "^\\d+-\\d+-\\d+-" "" .Name 1 }}"
 
 <!-- this will show up in the preview -->
 
-<!-- more -->
+<!--more-->
 
 <!-- this will only be visible when viewing the full post -->
