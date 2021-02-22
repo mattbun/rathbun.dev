@@ -13,7 +13,7 @@ enableGitInfo = true
   themeColor = "orange"
 
   # if you set this to 0, only submenu trigger will be visible
-  showMenuItems = 3
+  showMenuItems = 4
 
   # show selector to switch language
   showLanguageSelector = false
@@ -77,14 +77,22 @@ enableGitInfo = true
         identifier = "github"
         name = "github"
         url = "https://github.com/mattbun"
+        weight = 80
       [[languages.en.menu.main]]
         identifier = "linkedin"
         name = "linkedin"
         url = "https://linkedin.com/in/matthewrathbun"
+        weight = 90
+      [[languages.en.menu.main]]
+        identifier = "posts"
+        name = "posts"
+        url = "/posts"
+        weight = 20
       [[languages.en.menu.main]]
         identifier = "about"
         name = "about me"
         url = "/about"
+        weight = 10
 
 [frontmatter]
 date = [":filename", ":default"]
