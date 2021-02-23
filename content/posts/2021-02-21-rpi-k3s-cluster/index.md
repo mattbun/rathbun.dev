@@ -1,5 +1,5 @@
 ---
-title: "Raspberry Pi Cluster Part 1 - Saibamen Attack!"
+title: "Saibamen Attack! Building a Raspberry Pi Cluster"
 author: "Matt Rathbun"
 draft: false
 slug: "rpi-k3s-cluster"
