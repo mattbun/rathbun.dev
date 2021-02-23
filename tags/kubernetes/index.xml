@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2020 Matt Rathbun</copyright>
-    <lastBuildDate>Sun, 21 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 23 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Removing Old Torrents Using a Raspberry Pi Cluster</title>
+      <link>/posts/rpi-cluster-removing-torrents/</link>
+      <pubDate>Tue, 23 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/rpi-cluster-removing-torrents/</guid>
+      <description>&lt;p&gt;My new Raspberry Pi cluster is a little unstable and pretty limited since the nodes have just 1GB of memory. What the heck could I possibly use this for?&lt;/p&gt;
+&lt;p&gt;Turns out it&amp;rsquo;s great at running simple cron jobs. In this case, one that cleans up old torrents on a remote qbittorrent server.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Saibamen Attack! Building a Raspberry Pi Cluster</title>
       <link>/posts/rpi-k3s-cluster/</link>
