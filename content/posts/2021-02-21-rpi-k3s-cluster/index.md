@@ -19,6 +19,8 @@ I'll save my complaints for part 2. In this post, I'll outline what this new clu
 
 # Overview
 
+![saibamen diagram](saibamen_diagram.svg)
+
 To keep it simple, this cluster has just two nodes. In keeping with my tradition of naming computers after Dragon Ball Z villains, it's collectively named the `saibamen` cluster (after those [nasty little green aliens](https://dragonball.fandom.com/wiki/Saibamen) Nappa and Vegeta unleashed on our unsuspecting Z Fighters).
 
 * `saibaman1` -> master node
@@ -26,9 +28,6 @@ To keep it simple, this cluster has just two nodes. In keeping with my tradition
     * Connected to the outside network over WiFi and shares that connection with the rest of the cluster
 * `saibaman2` -> worker node
     * Only connected to the cluster network
-
-Or in diagram form:
-![saibamen diagram](saibamen_diagram.svg)
 
 ## The Hardware
 
