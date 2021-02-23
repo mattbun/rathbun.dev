@@ -5,7 +5,7 @@ draft: false
 slug: "rpi-k3s-cluster"
 toc: true
 tags:
-  - rpi
+  - raspberrypi
   - linux
   - kubernetes
   - k3s
@@ -225,6 +225,26 @@ The following is copied with a few small changes (mostly that I changed it to us
     kubectl get nodes
     ```
 
-# Now What?
+# So How Is It?
 
-Install your favorite helm chart on it! But remember that it's ARM so your favorite images might not run on it. Also you only have 1GB of memory on each node. Good luck!
+Well, let's just say I wouldn't put anything too important on it.
+
+k3s crashes when I push the cluster to its limits, like when installing a particularly complex Helm chart. To make matters worse, that crash can put it in a state where it can't start up again. I've had to reinstall it several times now.
+
+I have a couple theories for why this happens.
+
+## Power Issues?
+
+Raspberry Pis are notoriously sensitive to power supply issues. Remember that xkcd about how clicking links in a Wikipedia article will eventually lead you to "Philosophy"? I've found that debugging any Raspberry Pi issue will eventually lead you to a storefront selling a better power supply. It's weird how that always happens.
+
+On one hand, it could be that my USB hub isn't putting out enough power. I didn't really look into it too much to be honest. I didn't feel like buying new usb chargers and making the wiring more obnoxious for something that _might_ be the issue.
+
+I'm wondering if one of my Micro USB cables is to blame. Running `vcgencmd measure_volts` repeatedly under high CPU usage showed that one of my cables had a lower maximum voltage. I swapped it out and I feel like it's been a bit better but it might just be wishful thinking.
+
+## Are My Raspberry Pis Too Slow?
+
+[This article](https://medium.com/@ikarus/run-kubernetes-on-your-raspberry-pi-cluster-with-k3s-ac3687d6eb1a) makes the case that the Raspberry Pis I'm using are too slow to reliably run etcd (which is used by k3s to keep track of cluster state). Before the Raspberry Pi 4; Ethernet, USB, and the SD card are all on one USB 2.0 bus. I'm likely making this worse by having the same Pi handle both the control plane _and_ the cluster's network connection.
+
+## Whatever, It's Good Enough
+
+Despite all that, this has been a fun project. I built a kubernetes cluster on the cheap, mostly using parts I already had. As long as I don't push it too hard, it works just fine!
