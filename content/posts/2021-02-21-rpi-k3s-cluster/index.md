@@ -27,6 +27,9 @@ To keep it simple, this cluster has just two nodes. In keeping with my tradition
 * `saibaman2` -> worker node
     * Only connected to the cluster network
 
+Or in diagram form:
+![saibamen diagram](saibamen_diagram.svg)
+
 ## The Hardware
 
 * 2 x Raspberry Pi 3
