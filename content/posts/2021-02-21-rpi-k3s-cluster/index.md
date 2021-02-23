@@ -13,7 +13,7 @@ tags:
 
 Over the holidays I made a [k3s](https://k3s.io/) (that's Kubernetes minus 5) cluster out of Raspberry Pis I had lying around. And while it's _extremely_ cool, it's also _pretty_ unstable.
 
-I'll save my complaints for part 2. In this post, I'll outline what this new cluster looks like and how I set it up.
+In this post, I'll outline what this new cluster looks like and go into detail on how I set it up. At the end, I'll talk a little bit about why I won't be entrusting it with my most important tasks just yet.
 
 <!--more-->
 
