@@ -15,7 +15,7 @@
       
       <guid>/posts/rpi-k3s-cluster/</guid>
       <description>&lt;p&gt;Over the holidays I made a &lt;a href=&#34;https://k3s.io/&#34;&gt;k3s&lt;/a&gt; (that&amp;rsquo;s Kubernetes minus 5) cluster out of Raspberry Pis I had lying around. And while it&amp;rsquo;s &lt;em&gt;extremely&lt;/em&gt; cool, it&amp;rsquo;s also &lt;em&gt;pretty&lt;/em&gt; unstable.&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;ll save my complaints for part 2. In this post, I&amp;rsquo;ll outline what this new cluster looks like and how I set it up.&lt;/p&gt;</description>
+&lt;p&gt;In this post, I&amp;rsquo;ll outline what this new cluster looks like and go into detail on how I set it up. At the end, I&amp;rsquo;ll talk a little bit about why I won&amp;rsquo;t be entrusting it with my most important tasks just yet.&lt;/p&gt;</description>
     </item>
     
     <item>

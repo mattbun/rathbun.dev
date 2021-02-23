@@ -7,7 +7,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Over the holidays I made a k3s (that&amp;rsquo;s Kubernetes minus 5) cluster out of Raspberry Pis I had lying around. And while it&amp;rsquo;s extremely cool, it&amp;rsquo;s also pretty unstable.
-I&amp;rsquo;ll save my complaints for part 2. In this post, I&amp;rsquo;ll outline what this new cluster looks like and how I set it up.
+In this post, I&amp;rsquo;ll outline what this new cluster looks like and go into detail on how I set it up. At the end, I&amp;rsquo;ll talk a little bit about why I won&amp;rsquo;t be entrusting it with my most important tasks just yet.
 " />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
@@ -42,7 +42,7 @@ I&amp;rsquo;ll save my complaints for part 2. In this post, I&amp;rsquo;ll outli
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Raspberry Pi Cluster Part 1 - Saibamen Attack!">
 <meta property="og:description" content="Over the holidays I made a k3s (that&amp;rsquo;s Kubernetes minus 5) cluster out of Raspberry Pis I had lying around. And while it&amp;rsquo;s extremely cool, it&amp;rsquo;s also pretty unstable.
-I&amp;rsquo;ll save my complaints for part 2. In this post, I&amp;rsquo;ll outline what this new cluster looks like and how I set it up.
+In this post, I&amp;rsquo;ll outline what this new cluster looks like and go into detail on how I set it up. At the end, I&amp;rsquo;ll talk a little bit about why I won&amp;rsquo;t be entrusting it with my most important tasks just yet.
 " />
 <meta property="og:url" content="/posts/rpi-k3s-cluster/" />
 <meta property="og:site_name" content="#!/rath/bun" />
@@ -158,7 +158,7 @@ I&amp;rsquo;ll save my complaints for part 2. In this post, I&amp;rsquo;ll outli
   
   <span class="post-tags">
     
-    #<a href="/tags/rpi/">rpi</a>&nbsp;
+    #<a href="/tags/raspberrypi/">raspberrypi</a>&nbsp;
     
     #<a href="/tags/linux/">linux</a>&nbsp;
     
@@ -203,7 +203,13 @@ I&amp;rsquo;ll save my complaints for part 2. In this post, I&amp;rsquo;ll outli
         </li>
       </ul>
     </li>
-    <li><a href="#now-what">Now What?</a></li>
+    <li><a href="#so-how-is-it">So How Is It?</a>
+      <ul>
+        <li><a href="#power-issues">Power Issues?</a></li>
+        <li><a href="#are-my-raspberry-pis-too-slow">Are My Raspberry Pis Too Slow?</a></li>
+        <li><a href="#whatever-its-good-enough">Whatever, It&rsquo;s Good Enough</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -211,7 +217,7 @@ I&amp;rsquo;ll save my complaints for part 2. In this post, I&amp;rsquo;ll outli
 
   <div class="post-content"><div>
         <p>Over the holidays I made a <a href="https://k3s.io/">k3s</a> (that&rsquo;s Kubernetes minus 5) cluster out of Raspberry Pis I had lying around. And while it&rsquo;s <em>extremely</em> cool, it&rsquo;s also <em>pretty</em> unstable.</p>
-<p>I&rsquo;ll save my complaints for part 2. In this post, I&rsquo;ll outline what this new cluster looks like and how I set it up.</p>
+<p>In this post, I&rsquo;ll outline what this new cluster looks like and go into detail on how I set it up. At the end, I&rsquo;ll talk a little bit about why I won&rsquo;t be entrusting it with my most important tasks just yet.</p>
 <h1 id="overview">Overview<a href="#overview" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
 <p><img src="saibamen_diagram.svg" alt="saibamen diagram"></p>
 <p>To keep it simple, this cluster has just two nodes. In keeping with my tradition of naming computers after Dragon Ball Z villains, it&rsquo;s collectively named the <code>saibamen</code> cluster (after those <a href="https://dragonball.fandom.com/wiki/Saibamen">nasty little green aliens</a> Nappa and Vegeta unleashed on our unsuspecting Z Fighters).</p>
@@ -393,8 +399,18 @@ dhcp-range=192.168.2.10,192.168.2.250,255.255.255.0,12h
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">kubectl get nodes
 </code></pre></div></li>
 </ol>
-<h1 id="now-what">Now What?<a href="#now-what" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
-<p>Install your favorite helm chart on it! But remember that it&rsquo;s ARM so your favorite images might not run on it. Also you only have 1GB of memory on each node. Good luck!</p>
+<h1 id="so-how-is-it">So How Is It?<a href="#so-how-is-it" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>Well, let&rsquo;s just say I wouldn&rsquo;t put anything too important on it.</p>
+<p>k3s crashes when I push the cluster to its limits, like when installing a particularly complex Helm chart. To make matters worse, that crash can put it in a state where it can&rsquo;t start up again. I&rsquo;ve had to reinstall it several times now.</p>
+<p>I have a couple theories for why this happens.</p>
+<h2 id="power-issues">Power Issues?<a href="#power-issues" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Raspberry Pis are notoriously sensitive to power supply issues. Remember that xkcd about how clicking links in a Wikipedia article will eventually lead you to &ldquo;Philosophy&rdquo;? I&rsquo;ve found that debugging any Raspberry Pi issue will eventually lead you to a storefront selling a better power supply. It&rsquo;s weird how that always happens.</p>
+<p>On one hand, it could be that my USB hub isn&rsquo;t putting out enough power. I didn&rsquo;t really look into it too much to be honest. I didn&rsquo;t feel like buying new usb chargers and making the wiring more obnoxious for something that <em>might</em> be the issue.</p>
+<p>I&rsquo;m wondering if one of my Micro USB cables is to blame. Running <code>vcgencmd measure_volts</code> repeatedly under high CPU usage showed that one of my cables had a lower maximum voltage. I swapped it out and I feel like it&rsquo;s been a bit better but it might just be wishful thinking.</p>
+<h2 id="are-my-raspberry-pis-too-slow">Are My Raspberry Pis Too Slow?<a href="#are-my-raspberry-pis-too-slow" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p><a href="https://medium.com/@ikarus/run-kubernetes-on-your-raspberry-pi-cluster-with-k3s-ac3687d6eb1a">This article</a> makes the case that the Raspberry Pis I&rsquo;m using are too slow to reliably run etcd (which is used by k3s to keep track of cluster state). Before the Raspberry Pi 4; Ethernet, USB, and the SD card are all on one USB 2.0 bus. I&rsquo;m likely making this worse by having the same Pi handle both the control plane <em>and</em> the cluster&rsquo;s network connection.</p>
+<h2 id="whatever-its-good-enough">Whatever, It&rsquo;s Good Enough<a href="#whatever-its-good-enough" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Despite all that, this has been a fun project. I built a kubernetes cluster on the cheap, mostly using parts I already had. As long as I don&rsquo;t push it too hard, it works just fine!</p>
       </div></div>
 
   
