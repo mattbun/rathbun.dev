@@ -1,7 +1,7 @@
 ---
 title: "Removing Old Torrents Using a Raspberry Pi Cluster"
 author: "Matt Rathbun"
-draft: true
+draft: false
 slug: "rpi-cluster-removing-torrents"
 tags:
   - raspberrypi
