@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Getting Dependabot and semantic-release to Play Nice :: #!/rath/bun</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The other day, GitHub sent me a notification that there were a couple security vulnerabilities in the dependencies of one of my personal projects, castaway. Having used Dependabot at work, I figured I&amp;rsquo;d enable it and get that vulnerability taken care of.
+After I merged one of Dependabot&amp;rsquo;s PRs, I was shocked (😱) to find that semantic-release hadn&amp;rsquo;t made a release for it. Dependabot prefixed the commit with build(deps):, and semantic-release only creates releases for commits with prefixes fix and feat.
+What&amp;rsquo;s the point of a security update if it doesn&amp;rsquo;t actually build a new image? Looks like I&amp;rsquo;ve got some work to do.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="/posts/semantic-release-dependabot/" />
+
+
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon" href="/img/apple-touch-icon-192x192.png">
+
+  <link rel="shortcut icon" href="/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="Matt Rathbun" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Getting Dependabot and semantic-release to Play Nice">
+<meta property="og:description" content="The other day, GitHub sent me a notification that there were a couple security vulnerabilities in the dependencies of one of my personal projects, castaway. Having used Dependabot at work, I figured I&amp;rsquo;d enable it and get that vulnerability taken care of.
+After I merged one of Dependabot&amp;rsquo;s PRs, I was shocked (😱) to find that semantic-release hadn&amp;rsquo;t made a release for it. Dependabot prefixed the commit with build(deps):, and semantic-release only creates releases for commits with prefixes fix and feat.
+What&amp;rsquo;s the point of a security update if it doesn&amp;rsquo;t actually build a new image? Looks like I&amp;rsquo;ve got some work to do.
+" />
+<meta property="og:url" content="/posts/semantic-release-dependabot/" />
+<meta property="og:site_name" content="#!/rath/bun" />
+
+  
+    <meta property="og:image" content="/img/favicon/orange.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-06-19 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="orange">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    #!/rath/bun
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">about me</a></li>
+        
+      
+        
+          <li><a href="/posts">posts</a></li>
+        
+      
+        
+          <li><a href="https://github.com/mattbun">github</a></li>
+        
+      
+        
+          <li><a href="https://linkedin.com/in/matthewrathbun">linkedin</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">about me</a></li>
+      
+    
+      
+        <li><a href="/posts">posts</a></li>
+      
+    
+      
+        <li><a href="https://github.com/mattbun">github</a></li>
+      
+    
+      
+        <li><a href="https://linkedin.com/in/matthewrathbun">linkedin</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/semantic-release-dependabot/">Getting Dependabot and semantic-release to Play Nice</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-06-19 
+      </span>
+    
+    
+    <span class="post-author">:: Matt Rathbun</span>
+    
+  </div>
+
+  
+  <span class="post-tags">
+    
+    #<a href="/tags/semantic-release/">semantic-release</a>&nbsp;
+    
+    #<a href="/tags/dependabot/">dependabot</a>&nbsp;
+    
+  </span>
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>The other day, GitHub sent me a notification that there were a couple security vulnerabilities in the dependencies of one of my personal projects, <a href="https://github.com/mattbun/castaway">castaway</a>. Having used Dependabot at work, I figured I&rsquo;d enable it and get that vulnerability taken care of.</p>
+<p>After I merged one of Dependabot&rsquo;s PRs, I was shocked (😱) to find that semantic-release hadn&rsquo;t made a release for it. Dependabot prefixed the commit with <code>build(deps):</code>, and semantic-release only creates releases for commits with prefixes <code>fix</code> and <code>feat</code>.</p>
+<p>What&rsquo;s the point of a security update if it doesn&rsquo;t actually build a new image? Looks like I&rsquo;ve got some work to do.</p>
+<h1 id="approach-1---change-dependabot-commit-messages">Approach #1 - Change Dependabot Commit Messages<a href="#approach-1---change-dependabot-commit-messages" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>You can change Dependabot&rsquo;s commit messages! And not only that, you can change the commit prefix depending on whether its a dev or production dependency.</p>
+<p>I configured dependabot to use the commit prefix <code>fix(deps)</code> for production dependencies with the following in <code>.github/dependabot.yml</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">version</span>: <span style="color:#ae81ff">2</span>
+<span style="color:#f92672">updates</span>:
+  - <span style="color:#f92672">package-ecosystem</span>: <span style="color:#e6db74">&#34;npm&#34;</span>
+    <span style="color:#f92672">directory</span>: <span style="color:#e6db74">&#34;/&#34;</span>
+    <span style="color:#f92672">schedule</span>:
+      <span style="color:#f92672">interval</span>: <span style="color:#e6db74">&#34;daily&#34;</span>
+    <span style="color:#f92672">commit-message</span>:
+      <span style="color:#f92672">prefix</span>: <span style="color:#e6db74">&#34;fix&#34;</span>
+      <span style="color:#f92672">prefix-development</span>: <span style="color:#e6db74">&#34;build&#34;</span>
+      <span style="color:#f92672">include</span>: <span style="color:#e6db74">&#34;scope&#34;</span>
+    <span style="color:#f92672">allow</span>:
+      - <span style="color:#f92672">dependency-type</span>: <span style="color:#e6db74">&#34;production&#34;</span>
+</code></pre></div><p>This works! semantic-release bumps the patch version and triggers a new build when production dependencies are updated. Dev dependencies are still prefixed with <code>build</code>, which semantic-release ignores.</p>
+<h2 id="but-theres-a-catch">But there&rsquo;s a catch!<a href="#but-theres-a-catch" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Dependabot comes in a couple different flavors:</p>
+<ol>
+<li>GitHub Dependabot - this is enabled by having a <code>.github/dependabot.yml</code> file in your repository</li>
+<li>GitHub Dependabot Security Updates - this is enabled in your repository&rsquo;s &ldquo;Security &amp; Analysis&rdquo; section</li>
+</ol>
+<p>The dependabot configuration from above only affects the first one. Security updates <a href="https://github.community/t/how-to-get-dependabot-to-trigger-for-security-updates-only/117257/5">cannot be configured</a>. This also means that the configuration from above will enable <em>all</em> dependency updates, not just the ones with vulnerabilities.</p>
+<p>Now this is probably fine for plenty of projects. Keeping dependencies up-to-date is noble. If you&rsquo;re fine with that, you&rsquo;re done! No need to read the next section.</p>
+<p>But the project I&rsquo;m adding this to isn&rsquo;t worth all that hassle. I&rsquo;m fine with making some security updates here and there, but I don&rsquo;t want to spend all of my time updating dependencies unnecessarily.</p>
+<p>I guess I have to give up the ability to configure Dependabot to get what I want 🤦.</p>
+<h1 id="approach-2---configure-semantic-release-to-understand-dependabot-commits">Approach #2 - Configure semantic-release to Understand Dependabot Commits<a href="#approach-2---configure-semantic-release-to-understand-dependabot-commits" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h1>
+<p>We can&rsquo;t change how Dependabot Security Updates works, so we&rsquo;ll have to work with its default commit format: <code>build(deps)</code>.</p>
+<h2 id="commit-analyzer-changes">commit-analyzer Changes<a href="#commit-analyzer-changes" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>First, we&rsquo;ll need to configure semantic-release to see dependabot commits as &ldquo;patch&rdquo;-worthy updates. That can be done by adding a <code>releaseRule</code> to the commit-analyzer configuration, like the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;release&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+  <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">...</span>
+  <span style="color:#f92672">&#34;plugins&#34;</span>: [
+    [
+      <span style="color:#e6db74">&#34;@semantic-release/commit-analyzer&#34;</span>,
+      {
+        <span style="color:#f92672">&#34;preset&#34;</span>: <span style="color:#e6db74">&#34;conventionalcommits&#34;</span>,
+        <span style="color:#f92672">&#34;releaseRules&#34;</span>: [
+          {
+            <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;build&#34;</span>,
+            <span style="color:#f92672">&#34;scope&#34;</span>: <span style="color:#e6db74">&#34;deps&#34;</span>,
+            <span style="color:#f92672">&#34;release&#34;</span>: <span style="color:#e6db74">&#34;patch&#34;</span>
+          }
+        ]
+      }
+    ],
+    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">...</span>
+  ]
+}
+</code></pre></div><p>Note that dev dependencies use a different scope, <code>deps-dev</code>, so those updates will continue to be ignored by semantic-release.</p>
+<h2 id="release-notes-generator-changes">release-notes-generator Changes<a href="#release-notes-generator-changes" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>With just the commit-analyzer changes above, Dependabot updates will create releases, but the release notes in the GitHub release will be blank. That&rsquo;s not particularly helpful. To fix that, we&rsquo;ll need to make some configuration changes to semantic-release&rsquo;s release-notes-generator.</p>
+<p>First off, you&rsquo;ll need to add <a href="https://www.npmjs.com/package/conventional-changelog-conventionalcommits">conventional-changelog-conventionalcommits</a> to your dev dependencies, if you don&rsquo;t already have it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yarn add -D conventional-changelog-conventionalcommits
+</code></pre></div><p>Then configure the <code>release-notes-generator</code> plugin like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#e6db74">&#34;release&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+  <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">...</span>
+  <span style="color:#f92672">&#34;plugins&#34;</span>: [
+    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">...</span>
+    [
+      <span style="color:#e6db74">&#34;@semantic-release/release-notes-generator&#34;</span>,
+      {
+        <span style="color:#f92672">&#34;preset&#34;</span>: <span style="color:#e6db74">&#34;conventionalcommits&#34;</span>,
+        <span style="color:#f92672">&#34;presetConfig&#34;</span>: {
+          <span style="color:#f92672">&#34;types&#34;</span>: [
+            {
+              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;feat&#34;</span>,
+              <span style="color:#f92672">&#34;section&#34;</span>: <span style="color:#e6db74">&#34;Features&#34;</span>
+            },
+            {
+              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;fix&#34;</span>,
+              <span style="color:#f92672">&#34;section&#34;</span>: <span style="color:#e6db74">&#34;Bug Fixes&#34;</span>
+            },
+            {
+              <span style="color:#f92672">&#34;type&#34;</span>: <span style="color:#e6db74">&#34;build&#34;</span>,
+              <span style="color:#f92672">&#34;section&#34;</span>: <span style="color:#e6db74">&#34;Dependencies and Other Build Updates&#34;</span>,
+              <span style="color:#f92672">&#34;hidden&#34;</span>: <span style="color:#66d9ef">false</span>
+            }
+          ]
+        }
+      }
+    ]
+    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#960050;background-color:#1e0010">...</span>
+  ]
+}
+</code></pre></div><p>This puts any <code>build</code> commits in a new &ldquo;Dependencies and Other Build Updates&rdquo; section. That <code>&quot;hidden&quot;: false</code> is important! If you don&rsquo;t include it, it&rsquo;ll default to <code>true</code>.</p>
+<p>Note that this change will put other <code>build</code> commits in your changelog as well, though they may not trigger a release on their own.</p>
+<h3 id="do-i-have-to-use-the-conventionalcommits-preset">Do I have to use the conventionalcommits preset?<a href="#do-i-have-to-use-the-conventionalcommits-preset" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>I can&rsquo;t speak for the other presets, but <code>angular</code> doesn&rsquo;t support this as far as I can tell. The <code>conventionalcommits</code> preset has an <a href="https://github.com/conventional-changelog/conventional-changelog-config-spec/blob/master/versions/2.1.0/README.md">extensive configuration spec</a> while <a href="https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular#readme">the angular one doesn&rsquo;t seem to have any options?</a></p>
+<h2 id="can-i-see-all-these-changes-in-one-place">Can I see all these changes in one place?<a href="#can-i-see-all-these-changes-in-one-place" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Yep, <a href="https://github.com/mattbun/castaway/blob/bc4595ff2f52bf2f7d8b929f3c386f07472b2342/package.json#L36">see it in action here</a></p>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="/posts/rpi-cluster-removing-torrents/">
+                <span class="button__text">Removing Old Torrents Using a Raspberry Pi Cluster</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright copyright--user">
+        <span>&copy; 2020 Matt Rathbun</span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

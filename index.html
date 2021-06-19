@@ -152,6 +152,49 @@
     
       <div class="post on-list">
         <h1 class="post-title">
+          <a href="/posts/semantic-release-dependabot/">Getting Dependabot and semantic-release to Play Nice</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-06-19
+          </span>
+          
+            <span class="post-author">:: Matt Rathbun</span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/semantic-release/">semantic-release</a>&nbsp;
+            
+            #<a href="/tags/dependabot/">dependabot</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <p>The other day, GitHub sent me a notification that there were a couple security vulnerabilities in the dependencies of one of my personal projects, <a href="https://github.com/mattbun/castaway">castaway</a>. Having used Dependabot at work, I figured I&rsquo;d enable it and get that vulnerability taken care of.</p>
+<p>After I merged one of Dependabot&rsquo;s PRs, I was shocked (😱) to find that semantic-release hadn&rsquo;t made a release for it. Dependabot prefixed the commit with <code>build(deps):</code>, and semantic-release only creates releases for commits with prefixes <code>fix</code> and <code>feat</code>.</p>
+<p>What&rsquo;s the point of a security update if it doesn&rsquo;t actually build a new image? Looks like I&rsquo;ve got some work to do.</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/semantic-release-dependabot/">Read more →</a>
+        </div>
+        
+      </div>
+    
+      <div class="post on-list">
+        <h1 class="post-title">
           <a href="/posts/rpi-cluster-removing-torrents/">Removing Old Torrents Using a Raspberry Pi Cluster</a>
         </h1>
         <div class="post-meta">

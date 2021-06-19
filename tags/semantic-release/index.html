@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   
-    <title>Tags :: #!/rath/bun</title>
+    <title>semantic-release :: #!/rath/bun</title>
   
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <meta name="robots" content="noodp" />
-<link rel="canonical" href="/tags/" />
+<link rel="canonical" href="/tags/semantic-release/" />
 
 
 
@@ -38,9 +38,9 @@
 
 <meta property="og:locale" content="en" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Tags">
+<meta property="og:title" content="semantic-release">
 <meta property="og:description" content="" />
-<meta property="og:url" content="/tags/" />
+<meta property="og:url" content="/tags/semantic-release/" />
 <meta property="og:site_name" content="#!/rath/bun" />
 
   
@@ -54,7 +54,7 @@
 
 
 
-  <link href="/tags/index.xml" rel="alternate" type="application/rss+xml" title="#!/rath/bun" />
+  <link href="/tags/semantic-release/index.xml" rel="alternate" type="application/rss+xml" title="#!/rath/bun" />
 
 
 
@@ -137,116 +137,59 @@
 
   <div class="content">
     
-  <div class="terms">
-    <h1>Tags</h1>
-    <ul>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/dependabot/">dependabot (1)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/docker/">docker (1)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/gatsby/">gatsby (1)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/github-actions/">github-actions (2)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/github-pages/">github-pages (1)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/hugo/">hugo (1)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/k3s/">k3s (1)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/kubernetes/">kubernetes (2)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/linux/">linux (1)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/nodejs/">nodejs (1)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/raspberrypi/">raspberrypi (2)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/semantic-release/">semantic-release (1)</a>
-        </li>
-      
-      
-      
-      
-      
-        <li>
-          <a class="terms-title" href="/tags/ssg/">ssg (2)</a>
-        </li>
-      
-      
-    </ul>
+  
+  <div class="posts">
+    
+      <div class="post on-list">
+        <h1 class="post-title">
+          <a href="/posts/semantic-release-dependabot/">Getting Dependabot and semantic-release to Play Nice</a>
+        </h1>
+        <div class="post-meta">
+          <span class="post-date">
+            2021-06-19
+          </span>
+          
+            <span class="post-author">:: Matt Rathbun</span>
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="/tags/semantic-release/">semantic-release</a>&nbsp;
+            
+            #<a href="/tags/dependabot/">dependabot</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+        <div class="post-content">
+          
+          
+          <p>The other day, GitHub sent me a notification that there were a couple security vulnerabilities in the dependencies of one of my personal projects, <a href="https://github.com/mattbun/castaway">castaway</a>. Having used Dependabot at work, I figured I&rsquo;d enable it and get that vulnerability taken care of.</p>
+<p>After I merged one of Dependabot&rsquo;s PRs, I was shocked (😱) to find that semantic-release hadn&rsquo;t made a release for it. Dependabot prefixed the commit with <code>build(deps):</code>, and semantic-release only creates releases for commits with prefixes <code>fix</code> and <code>feat</code>.</p>
+<p>What&rsquo;s the point of a security update if it doesn&rsquo;t actually build a new image? Looks like I&rsquo;ve got some work to do.</p>
+          
+          
+        </div>
+
+        
+        <div>
+          <a class="read-more button"
+            href="/posts/semantic-release-dependabot/">Read more →</a>
+        </div>
+        
+      </div>
+    
+    <div class="pagination">
+  <div class="pagination__buttons">
+    
+    
+  </div>
+</div>
+
   </div>
 
   </div>

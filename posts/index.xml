@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2020 Matt Rathbun</copyright>
-    <lastBuildDate>Tue, 23 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Getting Dependabot and semantic-release to Play Nice</title>
+      <link>/posts/semantic-release-dependabot/</link>
+      <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/semantic-release-dependabot/</guid>
+      <description>&lt;p&gt;The other day, GitHub sent me a notification that there were a couple security vulnerabilities in the dependencies of one of my personal projects, &lt;a href=&#34;https://github.com/mattbun/castaway&#34;&gt;castaway&lt;/a&gt;. Having used Dependabot at work, I figured I&amp;rsquo;d enable it and get that vulnerability taken care of.&lt;/p&gt;
+&lt;p&gt;After I merged one of Dependabot&amp;rsquo;s PRs, I was shocked (😱) to find that semantic-release hadn&amp;rsquo;t made a release for it. Dependabot prefixed the commit with &lt;code&gt;build(deps):&lt;/code&gt;, and semantic-release only creates releases for commits with prefixes &lt;code&gt;fix&lt;/code&gt; and &lt;code&gt;feat&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;What&amp;rsquo;s the point of a security update if it doesn&amp;rsquo;t actually build a new image? Looks like I&amp;rsquo;ve got some work to do.&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Removing Old Torrents Using a Raspberry Pi Cluster</title>
       <link>/posts/rpi-cluster-removing-torrents/</link>
